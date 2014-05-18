@@ -1,0 +1,82 @@
+package me.jakeypoo2005.kit;
+
+
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+ 
+public class Kit extends JavaPlugin {
+ 
+        public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+                if (!(sender instanceof Player)) {
+                        sender.sendMessage(ChatColor.RED + "Only players can get kits! u bad boi :c");
+                        return true;
+                }
+               
+                Player p = (Player) sender;
+                PlayerInventory pi = p.getInventory();
+               
+                if (cmd.getName().equalsIgnoreCase("warrior")) {
+                        pi.clear();
+                        pi.setArmorContents(null);
+                        for (PotionEffect effect : p.getActivePotionEffects())
+                        p.removePotionEffect(effect.getType());
+                		ItemStack sword = new ItemStack(Material.IRON_SWORD, 1);
+                        sword.addEnchantment(Enchantment.DAMAGE_ALL, 1);
+                		pi.addItem(sword);
+                		ItemStack bow = new ItemStack(Material.BOW, 1);
+                		pi.addItem(bow);
+                        pi.addItem(new ItemStack(Material.ARROW, 64));
+                        pi.addItem(new ItemStack(Material.GOLDEN_APPLE, 5));
+                        pi.addItem(new ItemStack(Material.GOLDEN_CARROT, 32));
+                        p.getPlayer().getInventory().setHelmet(new ItemStack(Material.DIAMOND_HELMET));
+                        p.getPlayer().getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+                        p.getPlayer().getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+                        p.getPlayer().getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,1000000000,0));
+                    	p.addPotionEffect(new PotionEffect(PotionEffectType.HEAL,100,0));
+
+                        p.sendMessage(ChatColor.GREEN + "You got the " + ChatColor.DARK_RED + "Warrior " + ChatColor.GREEN + "Kit!" );
+                }
+               
+                if (cmd.getName().equalsIgnoreCase("ci")) {
+                        pi.clear();
+                        pi.setArmorContents(null);
+                        for (PotionEffect effect : p.getActivePotionEffects())
+                        	p.removePotionEffect(effect.getType());
+                        p.sendMessage(ChatColor.AQUA + "Inventory Cleared!");
+                }
+                if (cmd.getName().equalsIgnoreCase("archer")) {
+                	pi.clear();
+                	pi.setArmorContents(null);
+                	for (PotionEffect effect : p.getActivePotionEffects())
+                	p.removePotionEffect(effect.getType());
+                	ItemStack sword = new ItemStack(Material.STONE_SWORD, 1);
+                	sword.addEnchantment(Enchantment.KNOCKBACK, 1);
+                	pi.addItem(sword);
+                	ItemStack bow = new ItemStack(Material.BOW, 1);
+                	bow.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+                	bow.addEnchantment(Enchantment.ARROW_INFINITE, 1);
+                	pi.addItem(bow);
+                	pi.addItem(new ItemStack(Material.ARROW, 1));
+                	pi.addItem(new ItemStack(Material.GOLDEN_CARROT, 64));
+                	p.getPlayer().getInventory().setHelmet(new ItemStack(Material.LEATHER_HELMET));
+                	p.getPlayer().getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
+                	p.getPlayer().getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
+                	p.getPlayer().getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));
+                	p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE,1000000000,0));
+                	p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,1000000000,0));
+                	p.addPotionEffect(new PotionEffect(PotionEffectType.HEAL,100,0));
+                	p.sendMessage(ChatColor.GREEN + "You got the " + ChatColor.DARK_PURPLE + "Archer " + ChatColor.GREEN + "Kit!" );
+                }
+                return true;
+        }
+}
